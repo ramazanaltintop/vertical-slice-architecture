@@ -1,6 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using VerticalSliceArchitecture.WebAPI.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("SqlServer");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddOpenApi();
 
