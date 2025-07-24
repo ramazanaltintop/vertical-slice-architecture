@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Scrutor;
 using VerticalSliceArchitecture.WebAPI.Common.Extensions;
 using VerticalSliceArchitecture.WebAPI.Infrastructure.Database;
 
@@ -11,6 +12,13 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.Scan(options => options
+    .FromAssembliesOf(typeof(Program))
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Handler")))
+    .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
 
 builder.Services.AddOpenApi();
 
