@@ -1,9 +1,12 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using VerticalSliceArchitecture.WebAPI.Common.Extensions;
 using VerticalSliceArchitecture.WebAPI.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
