@@ -1,14 +1,14 @@
 ﻿using VerticalSliceArchitecture.WebAPI.Common.Abstractions;
 using VerticalSliceArchitecture.WebAPI.Common.Constants;
 
-namespace VerticalSliceArchitecture.WebAPI.Features.Categories.GetAllCategory;
+namespace VerticalSliceArchitecture.WebAPI.Features.Categories.GetAllCategories;
 
-public class GetAllCategoryEndpoint : IEndpoint
+public class GetAllCategoriesEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet(ApiRoutes.Categories.Base, async (
-            IGetAllCategoryHandler handler,
+            IGetAllCategoriesHandler handler,
             CancellationToken cancellationToken) =>
         {
             var response = await handler.HandleAsync(cancellationToken);
@@ -16,6 +16,9 @@ public class GetAllCategoryEndpoint : IEndpoint
             return Results.Ok(response);
         })
         .WithTags("Categories")
-        .Produces<IList<GetAllCategoryResponse>>(200);
+        .WithName("GetAllCategories")
+        .WithSummary("Get all categories")
+        .WithDescription("Returns the full list of categories.")
+        .Produces<IList<GetAllCategoriesResponse>>(200);
     }
 }
