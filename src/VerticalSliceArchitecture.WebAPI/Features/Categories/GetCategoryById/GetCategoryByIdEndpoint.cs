@@ -2,19 +2,19 @@
 using VerticalSliceArchitecture.WebAPI.Common.Abstractions;
 using VerticalSliceArchitecture.WebAPI.Common.Constants;
 
-namespace VerticalSliceArchitecture.WebAPI.Features.Categories.GetCategory;
+namespace VerticalSliceArchitecture.WebAPI.Features.Categories.GetCategoryById;
 
-public class GetCategoryEndpoint : IEndpoint
+public class GetCategoryByIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet(ApiRoutes.Categories.Get, async (
             Guid id,
-            IValidator<GetCategoryQuery> validator,
-            IGetCategoryHandler handler,
+            IValidator<GetCategoryByIdQuery> validator,
+            IGetCategoryByIdHandler handler,
             CancellationToken cancellationToken) =>
         {
-            var request = new GetCategoryQuery(id);
+            var request = new GetCategoryByIdQuery(id);
 
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -28,6 +28,9 @@ public class GetCategoryEndpoint : IEndpoint
             return Results.Ok(response);
         })
         .WithTags("Categories")
-        .Produces<GetCategoryResponse>(200);
+        .WithName("GetCategoryById")
+        .WithSummary("Get category by ID")
+        .WithDescription("Returns a single category identified by its ID.")
+        .Produces<GetCategoryByIdResponse>(200);
     }
 }
