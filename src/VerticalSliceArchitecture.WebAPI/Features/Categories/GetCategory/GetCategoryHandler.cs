@@ -14,6 +14,7 @@ public sealed class GetCategoryHandler(
     public async Task<GetCategoryResponse> HandleAsync(GetCategoryQuery request, CancellationToken cancellationToken)
     {
         var category = await context.Categories
+            .Where(p => p.IsDeleted == false)
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken)
                 ?? throw new Exception("Category not found");
 

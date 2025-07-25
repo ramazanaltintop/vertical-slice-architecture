@@ -14,6 +14,7 @@ public class GetAllCategoryHandler(
     public async Task<IList<GetAllCategoryResponse>> HandleAsync(CancellationToken cancellationToken)
     {
         return await context.Categories
+            .Where(p => p.IsDeleted == false)
             .Select(s => new GetAllCategoryResponse(
                 s.Id,
                 s.Name,
