@@ -28,6 +28,9 @@ public class PatchCategoryNameEndpoint : IEndpoint
             return Results.Ok(response);
         })
         .WithTags("Categories")
+        .WithName("PatchCategoryName")
+        .WithSummary("Partially update category")
+        .WithDescription("Updates name field of the category identified by the given ID.")
         .Produces<PatchCategoryNameResponse>(200);
     }
 }

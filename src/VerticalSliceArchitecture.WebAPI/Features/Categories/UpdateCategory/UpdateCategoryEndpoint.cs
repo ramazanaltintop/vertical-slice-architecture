@@ -28,6 +28,9 @@ public class UpdateCategoryEndpoint : IEndpoint
             return Results.Ok(response);
         })
         .WithTags("Categories")
+        .WithName("UpdateCategory")
+        .WithSummary("Update entire category")
+        .WithDescription("Updates the entire category identified by the given ID.")
         .Produces<UpdateCategoryResponse>(200);
     }
 }

@@ -27,6 +27,9 @@ public sealed class CreateCategoryEndpoint : IEndpoint
             return Results.Created($"{ApiRoutes.Categories.Base}/{response.Id}", response);
         })
         .WithTags("Categories")
+        .WithName("CreateCategory")
+        .WithSummary("Create a new category")
+        .WithDescription("Creates a new category with the given data.")
         .Produces<CreateCategoryResponse>(201);
     }
 }
