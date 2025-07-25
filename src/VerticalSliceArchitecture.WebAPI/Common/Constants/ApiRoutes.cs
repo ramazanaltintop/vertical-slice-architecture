@@ -11,5 +11,6 @@ public static class ApiRoutes
         public const string GetAll = Base + "/get-all";
         public const string Get = Base + "/get/{id}";
         public const string Update = Base + "/update/{id}";
+        public const string Patch = Base + "/patch/{id}";
     }
 }
