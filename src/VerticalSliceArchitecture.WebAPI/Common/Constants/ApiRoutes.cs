@@ -7,10 +7,9 @@ public static class ApiRoutes
     public static class Categories
     {
         public const string Base = BaseApi + "/categories";
-        public const string Create = Base + "/create";
-        public const string GetAll = Base + "/get-all";
-        public const string Get = Base + "/get/{id}";
-        public const string Update = Base + "/update/{id}";
-        public const string Patch = Base + "/patch/{id}";
+        public const string Get = Base + "/{id}";
+        public const string Update = Base + "/{id}";
+        public const string Patch = Base + "/{id}";
+        public const string Delete = Base + "/{id}";
     }
 }

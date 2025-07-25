@@ -7,7 +7,7 @@ public class GetAllCategoryEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(ApiRoutes.Categories.GetAll, async (
+        app.MapGet(ApiRoutes.Categories.Base, async (
             IGetAllCategoryHandler handler,
             CancellationToken cancellationToken) =>
         {

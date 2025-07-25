@@ -9,7 +9,7 @@ public sealed class CreateCategoryEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost(ApiRoutes.Categories.Create, async (
+        app.MapPost(ApiRoutes.Categories.Base, async (
             [FromBody] CreateCategoryCommand request,
             IValidator<CreateCategoryCommand> validator,
             ICreateCategoryHandler handler,
