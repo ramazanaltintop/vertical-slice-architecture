@@ -16,12 +16,7 @@ public class GetCategoryByIdEndpoint : IEndpoint
         {
             var request = new GetCategoryByIdQuery(id);
 
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            if (!validationResult.IsValid)
-            {
-                return Results.ValidationProblem(validationResult.ToDictionary());
-            }
+            await validator.ValidateAndThrowAsync(request, cancellationToken);
 
             var response = await handler.HandleAsync(request, cancellationToken);
 

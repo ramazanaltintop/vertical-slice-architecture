@@ -16,12 +16,7 @@ public class UpdateCategoryEndpoint : IEndpoint
             IUpdateCategoryHandler handler,
             CancellationToken cancellationToken) =>
         {
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            if (!validationResult.IsValid)
-            {
-                return Results.ValidationProblem(validationResult.ToDictionary());
-            }
+            await validator.ValidateAndThrowAsync(request, cancellationToken);
 
             var response = await handler.HandleAsync(id, request, cancellationToken);
 
