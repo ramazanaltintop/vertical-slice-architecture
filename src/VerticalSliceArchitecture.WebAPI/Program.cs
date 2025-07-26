@@ -2,10 +2,21 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Scrutor;
+using VerticalSliceArchitecture.WebAPI.Common.Exceptions;
 using VerticalSliceArchitecture.WebAPI.Common.Extensions;
 using VerticalSliceArchitecture.WebAPI.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddProblemDetails(configure =>
+{
+    configure.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+    };
+});
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
@@ -35,5 +46,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapEndpoints();
+
+app.UseExceptionHandler();
 
 app.Run();
